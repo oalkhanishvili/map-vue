@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Learninig</title>
+  <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <style type="text/css">
+    section > div {
+        margin: 3px;
+        cursor: pointer;
+    }
+    .active{
+      text-decoration:  line-through;
+      background-color: #5cb85c;
+    }
+    .panel{
+      width: 50%;
+      position: fixed;
+      z-index: 9999;
+      margin: 6% auto;
+      top: 0;left: 0;right: 0;bottom: 0;
+    }
+    .alert-box{
+      height: 100px;
+    }
+    .box-transition{
+      transition: all .8s ease;
+      overflow: hidden;
+    }
+    .box-enter, .box-leave {
+
+      opacity: 0;
+      transform: translate3d(10px, 0, 0);
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../bower_components/mocha/mocha.js"></script>
+  <script>mocha.setup('bdd');</script>
+  <script src="../bower_components/chai/chai.js"></script>
+  <script>
+    var assert = chai.assert;
+    var expect = chai.expect;
+    var should = chai.should();
+  </script>
+  <!-- bower:js -->
+  <!-- endbower -->
+  <!-- include source files here... -->
+  <!-- include spec files here... -->
+
+<div class="container">
+
+  <header>
+      <h1>Task manager</h1>
+  </header>
+  <section id="app">
+      <div class="row">
+        <div class="col-md-12">
+          <tasks :list="tasks"></tasks>
+        </div>
+      </div>
+  </section>
+</div>
+
+  <template id="myComponent">
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{ progressBar }}%;">
+        {{ Math.floor(progressBar)+'%' }}
+      </div>
+    </div>
+      <div class="panel panel-info" v-show="$root.popup" transition="box">
+        <div class="panel-heading">
+          Add task
+          <button type="button" class="close" aria-label="Close"  @click="$root.popup = false">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="panel-body">
+          <div class="alert-box">
+            <div class="alert alert-danger" v-if="!validation.title || !validation.description">
+              <ul>
+                <li v-show="!validation.title">Title Required</li>
+                <li v-show="!validation.description">Description Required</li>
+              </ul>
+            </div>
+          </div>
+          <form class="form-horizontal" @submit.prevent="addTask">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="Title" v-model="title">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="3" placeholder="Description" v-model="description"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button :disabled="!isValid" type="submit" class="btn btn-default">Submit</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="alert alert-success" v-if="success" transition="box">
+            <p>
+              User has succesfuly added
+            </p>
+          </div>
+        </div>
+      </div>
+
+    <button class="btn btn-primary btn-sm" type="button" name="button"  @click="$root.popup=true">Add task</button>
+    <h1 v-show="remaining">Remaining ({{ remaining }})</h1>
+    </p>
+    <ul v-if="list.length" class="list-group">
+      <li class="list-group-item" :class="{'active': task.display}"
+          v-for="task in list"
+          @click="change(task)"
+      >
+          {{ task.body }}
+          <button type="button" class="close" aria-label="Close" @click="remove(task)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </li>
+    </ul>
+    <div class="" v-else>
+      <p class="alert alert-info">
+        no posts yet
+      </p>
+      <button class="btn btn-default btn-sm" type="button" name="button" @click="reset">Reset</button>
+    </div>
+
+    <button class="btn btn-primary btn-sm" type="button" name="button" v-show="list.length " @click="clearAll">Clear all</button>
+  </template>
+    <script src="../bower_components/vue/dist/vue.js"></script>
+    <script src="scripts/app.js"></script>
+  <script>
+    if (navigator.userAgent.indexOf('PhantomJS') === -1) {
+      mocha.run();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Learninig</title>
+  <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <style type="text/css">
+    html, body {        height: 100%;        margin: 0;        padding: 0;      }
+    #map {
+        height: 100%;
+      }
+    section > div {
+        margin: 3px;
+        cursor: pointer;
+    }
+    .active{
+      text-decoration:  line-through;
+      background-color: #5cb85c;
+    }
+    .panel{
+      width: 50%;
+      position: fixed;
+      z-index: 9999;
+      margin: 6% auto;
+      top: 0;left: 0;right: 0;bottom: 0;
+    }
+    .alert-box{
+      height: 100px;
+    }
+    .box-transition{
+      transition: all .8s ease;
+      overflow: hidden;
+    }
+    .box-enter, .box-leave {
+
+      opacity: 0;
+      transform: translate3d(10px, 0, 0);
+    }
+    .mapWinWrapper{
+      background: red;
+      margin: auto;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      height: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../bower_components/mocha/mocha.js"></script>
+  <script>mocha.setup('bdd');</script>
+  <script src="../bower_components/chai/chai.js"></script>
+  <script>
+    var assert = chai.assert;
+    var expect = chai.expect;
+    var should = chai.should();
+  </script>
+<input type="text" name="name" value="title" v-model="text">
+<div id="map"></div>
+<template id="mytemplate">
+afaf
+</template>
+  <!--  -->
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1BjgFO1r9gmIC4P_grwGJcOu4Iw_F0xA&callback=initMap">
+  </script>
+  <script src="../bower_components/google-infobox/google-infobox.js"></script>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js">  </script>
+
+
+  <script src="scripts/map.js"></script>
+
+<script>
+  if (navigator.userAgent.indexOf('PhantomJS') === -1) {
+    mocha.run();
+  }
+</script>
+</body>
+</html>
